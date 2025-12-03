@@ -1,36 +1,35 @@
-StellarForge SDK for Python
+# StellarForge SDK for Python
 
-<p align="center">
-<em>The official Python library for connecting to the StellarForge API. Seamlessly register new astronomical objects and access catalog data.</em>
-</p>
+*The official Python library for connecting to the StellarForge API. Seamlessly register new astronomical objects and access catalog data.*
 
-✨ Features
+## ✨ Features
 
-Idiomatic Python: Use native Python classes (Star, Coordinates) instead of raw JSON dictionaries.
+- Idiomatic Python: Use native Python classes (Star, Coordinates) instead of raw JSON dictionaries
+- Built-in Authentication: Simplifies API key handling
+- Robust Error Handling: Translates HTTP errors into actionable Python exceptions (for example, AuthenticationError, InvalidCoordinatesError)
+- Planned Feature: Automatic retries for transient 5xx errors (Service Unavailable)
 
-Built-in Authentication: Simplifies API key handling.
+## 🚀 Getting Started
 
-Robust Error Handling: Translates HTTP errors into actionable Python exceptions (e.g., AuthenticationError, InvalidCoordinatesError).
-
-Automatic Retries (Future): Built-in logic for handling transient 5xx errors (Service Unavailable).
-
-🚀 Getting Started
-
-1. Installation
+1. **Installation**
 
 Install the library using pip:
 
-pip install stellarforge-sdk
+`bash`
 
-
-
+`pip install stellarforge-sdk`
 
 2. Quick Start Example
 
 The quickest way to register a new star in the catalog is shown below. This example demonstrates how to correctly handle potential API errors.
-
+```
 import os
-from stellarforge import StellarForgeClient, AuthenticationError, InvalidCoordinatesError
+from stellarforge import (
+    StellarForgeClient,
+    AuthenticationError,
+    InvalidCoordinatesError,
+    ServiceUnavailableError
+)
 
 # 1. Initialize the client
 # It's recommended to load your API key from an environment variable for security.
@@ -42,7 +41,7 @@ client = StellarForgeClient(api_key=API_KEY)
 
 # 2. Define the new celestial object data
 star_name = "Provisional-2025-A"
-ra_coord = 5.67  # Right Ascension in hours
+ra_coord = 5.67   # Right Ascension in hours
 dec_coord = -32.11 # Declination in degrees
 observer = "Vera C. Rubin Observatory"
 
@@ -60,96 +59,51 @@ try:
     print(f"Name: {new_star.name}")
     print(f"Registered At: {new_star.registered_at}")
 
+# 4. Handle potential errors
 except AuthenticationError:
     print("❌ Error: Invalid API Key. Please check your credentials.")
 
 except InvalidCoordinatesError as e:
     print(f"❌ Error: Input Validation Failed. Details: {e}")
 
+except ServiceUnavailableError:
+    print("❌ Error: Service temporarily unavailable. Please retry later.")
+
 except Exception as e:
     print(f"❌ An unexpected error occurred: {e}")
+    ```
 
+### 🛠 Reference: SDK Classes and Methods
 
+`StellarForgeClient`
 
-
-🛠 Reference: SDK Classes and Methods
-
-StellarForgeClient
-
-Method
-
-Description
-
-__init__(api_key: str)
-
-Initializes the client with the required authentication key.
-
-register_new_star(...) -> Star
-
-(MVP) Registers a new star based on observation data.
-
-Star Object
-
+| Method | Description |
+| :------------------- | :---------- |
+| __init__(api_key: str) | Initializes the client with the required authentication key |
+| register_new_star(...) -> Star | (MVP) Registers a new star based on observation data |
+  
+`Star Object`
 A native Python object returned upon successful star registration.
 
-Property
+| Property | Type  | Description |
+| :------- | :---- | :---------- |
+| id       | str   | Unique StellarForge identifier |
+| name     | str   | Provisional designation |
+| ra       | float | Right Ascension (hours) |
+| dec      | float | Declination (degrees) |
+| registered_at | str | Timestamp of registration |
 
-Type
 
-Description
-
-id
-
-str
-
-Unique StellarForge identifier.
-
-name
-
-str
-
-Provisional designation.
-
-ra
-
-float
-
-Right Ascension (extracted from coordinates).
-
-dec
-
-float
-
-Declination (extracted from coordinates).
-
-SDK Exceptions
-
+## SDK Exceptions
 These custom exceptions allow developers to write clean, predictable error handling logic.
 
-Exception
+| Exception | API HTTP Status | Description |
+| :------------------- | :---------- | :---------- |
+| AuthenticationError | 401 | Raised when the API key is missing or invalid |
+| InvalidCoordinatesError | 400 | Raised when input parameters are syntactically or semantically incorrect (for example, coordinates out of range) |
+| ServiceUnavailableError | 5xx | Raised for server-side issues |
 
-API HTTP Status
+## ❓ Support
 
-Description
+If you encounter issues, please [open an Issue](https://github.com/<repo>/issues) on the GitHub repository.
 
-AuthenticationError
-
-401
-
-Raised when the API key is missing or invalid.
-
-InvalidCoordinatesError
-
-400
-
-Raised when input parameters are syntactically or semantically incorrect (e.g., coordinates out of range).
-
-ServiceUnavailableError
-
-5xx
-
-Raised for server-side issues.
-
-❓ Support
-
-If you encounter issues, please open an Issue on the GitHub repository.
