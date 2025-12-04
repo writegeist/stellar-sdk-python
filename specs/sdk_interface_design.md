@@ -1,6 +1,6 @@
 # StellarForge SDK Interface Design - Python (Conceptual)
 
-*Goal: Translate the raw HTTP API contract (api_contract_v1.md) into a clean, idiomatic Python interface that prioritizes Developer Experience (DX). This document is the internal blueprint that guides the SDK code implementation.*
+* Goal: Translate the raw HTTP API contract (api_contract_v1.md) into a clean, idiomatic Python interface that prioritizes Developer Experience (DX). This document is the internal blueprint that guides the SDK code implementation.*
 
 1. SDK Client Initialization
 
@@ -27,24 +27,23 @@ API Requirement (Raw JSON): `coordinates: {ra: 5.67, dec: -32.11}`
 SDK Argument (Simplified Python): `ra: float, dec: float`
 
 SDK Method:
+
+```python
+def register_new_star(self, name: str, ra: float, dec: float, observed_by: str) -> Star:
+    """
+    Registers a new Star object in the StellarForge catalog.
+
+    :param name: The provisional designation. (String)
+    :param ra: Right Ascension (decimal hours, 0.0 to 24.0). (Float)
+    :param dec: Declination (decimal degrees, -90.0 to 90.0). (Float)
+    :param observed_by: The observer or telescope name. (String)
+    :returns: A fully populated Star object upon successful HTTP 201.
+    :raises AuthenticationError: If the API key is invalid (HTTP 401).
+    :raises InvalidCoordinatesError: If input data fails validation (HTTP 400).
+    :raises ServiceUnavailableError: If the API server fails (HTTP 5xx).
+    """
+    pass
 ```
-
-    def register_new_star(self, name: str, ra: float, dec: float, observed_by: str) -> Star:
-        """
-        Registers a new Star object in the StellarForge catalog.
-
-        :param name: The provisional designation. (String)
-        :param ra: Right Ascension (decimal hours, 0.0 to 24.0). (Float)
-        :param dec: Declination (decimal degrees, -90.0 to 90.0). (Float)
-        :param observed_by: The observer or telescope name. (String)
-        :returns: A fully populated Star object upon successful HTTP 201.
-        :raises AuthenticationError: If the API key is invalid (HTTP 401).
-        :raises InvalidCoordinatesError: If input data fails validation (HTTP 400).
-        :raises ServiceUnavailableError: If the API server fails (HTTP 5xx).
-        """
-        pass
-		```
-
 
 3. The Result Object (Native Data Modeling)
 
