@@ -4,7 +4,7 @@
 
 ## ✨ Features
 
-- Idiomatic Python: Use native Python classes (Star, Coordinates) instead of raw JSON dictionaries
+- Idiomatic Python: Use native Python classes (like `Star`) instead of raw JSON dictionaries
 - Built-in Authentication: Simplifies API key handling
 - Robust Error Handling: Translates HTTP errors into actionable Python exceptions (for example, AuthenticationError, InvalidCoordinatesError)
 - Planned Feature: Automatic retries for transient 5xx errors (Service Unavailable)
@@ -91,6 +91,7 @@ A native Python object returned upon successful star registration.
 | name     | str   | Provisional designation |
 | ra       | float | Right Ascension (hours) |
 | dec      | float | Declination (degrees) |
+| observed_by | str | Name of the observer or telescope | 
 | registered_at | str | Timestamp of registration |
 
 
