@@ -90,7 +90,7 @@ While Steps 1, 2, and 3 result in non-executable documents, the enforcement of t
 
 The contract defined the mandatory server behavior, including required validation (`RA` between 0 and 24) and error codes. We can show this is enforced in the `stellarforge_sdk.py` mock function:
 
-```
+
 from typing import Tuple, Dict, Any
 
 class StellarForgeClient:
@@ -137,6 +137,8 @@ class StellarForgeClient:
             raise Exception(f"Unexpected error: {response}")
 
 # Mock API call (from your earlier snippet)
+
+
 def _mock_api_call(method: str, path: str, headers: dict, body: dict) -> Tuple[int, Dict[str, Any]]:
     """Simulates the HTTP behavior defined in the API Contract."""
 
@@ -171,6 +173,6 @@ class Star:
 class AuthenticationError(Exception): pass
 class InvalidCoordinatesError(Exception): pass
 class ServiceUnavailableError(Exception): pass
-``` 
+```
 
-Presenter Narrative: "For Step 1, I created the API Contract document. Its importance is demonstrated here: the `_mock_api_call` function is a literal, executable representation of that contract's rules. It proves that the validation constraints and error codes defined in the specification are the foundation for all subsequent code."
+For Step 1, I created the API Contract document. Its importance is demonstrated here: the `_mock_api_call` function is a literal, executable representation of that contract's rules. It proves that the validation constraints and error codes defined in the specification are the foundation for all subsequent code.
