@@ -16,7 +16,7 @@ The project followed a five-step documentation-driven development process:
 | 2. Interface Blueprint | `sdk_interface_design_blueprint.md` | Internal/Technical Writer: Designed the high-level class structure, method signatures, and determined how to abstract complexity (Flattening Objects, Error Mapping) | Abstraction & DX Design | 
 | 3. Public Documentation | `README.md` | Public: The developer's quick-start guide and method reference | Public Documentation | 
 | 4. Core Implementation | `stellarforge_sdk.py` | Product Code: Wrote the Python logic to implement the abstraction from Step 2 | Idiomatic Code Design | 
-| 5. Quality Assurance | demo.py | QA/Demo: A test script to prove the implementation matches the documentation across all scenarios (Success, 401, 400, 500) | Reliability & Testing | 
+| 5. Quality Assurance | `demo.py` | QA/Demo: A test script to prove the implementation matches the documentation across all scenarios (Success, 401, 400, 500) | Reliability & Testing | 
 
 ## Core Concept Demonstrated: Abstraction & Error Mapping
 The primary technical challenge solved was transforming the low-level API response into a superior developer experience (DX).
@@ -25,8 +25,8 @@ The primary technical challenge solved was transforming the low-level API respon
 
 | Low-Level API (Bad DX) | High-Level SDK (Good DX) |
 | ----------------------- | ------------------------ |
-| **Data:** Nested JSON object (e.g., `response['data']['coordinates']['ra']`) | **Abstraction:** Flattened Python object (`Star.ra`) |
-| **Errors:** Generic HTTP status codes (e.g., `401 Unauthorized`) | **Abstraction:** Custom Python exceptions (`AuthenticationError`) |
+| **Data:** Nested JSON object (for example, `response['data']['coordinates']['ra']`) | **Abstraction:** Flattened Python object (`Star.ra`) |
+| **Errors:** Generic HTTP status codes (for example, `401 Unauthorized`) | **Abstraction:** Custom Python exceptions (`AuthenticationError`) |
 
 
 ## 💾 Final Artifacts
@@ -46,7 +46,7 @@ StellarForge SDK for Python
 
 - **Idiomatic Python:** Use native Python classes (like `Star`) instead of raw JSON dictionaries.
 - **Built-in Authentication:** Simplifies API key handling by automatically managing the `X-Api-Key` header.
-- **Robust Error Handling:** Translates HTTP errors (401, 400, 5xx) into actionable Python exceptions (e.g., `AuthenticationError`).
+- **Robust Error Handling:** Translates HTTP errors (401, 400, 5xx) into actionable Python exceptions (for example, `AuthenticationError`).
 
 ## 🚀 Getting Started
 
